@@ -1,237 +1,218 @@
-# FunnelGraph.js 
+# Vue 3 Funnel Graph Component
 
-![npm](https://img.shields.io/npm/v/funnel-graph-js.svg)
-[![Build Status](https://travis-ci.org/greghub/funnel-graph-js.svg?branch=master)](https://travis-ci.org/greghub/funnel-graph-js)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/greghub/funnel-graph-js/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/greghub/funnel-graph-js/?branch=master)
-![GitHub file size in bytes](https://img.shields.io/github/size/greghub/funnel-graph-js/dist/js/funnel-graph.min.js.svg)
-![GitHub](https://img.shields.io/github/license/greghub/funnel-graph-js.svg)
-![GitHub last commit](https://img.shields.io/github/last-commit/greghub/funnel-graph-js.svg)
-[![Gitter](https://img.shields.io/gitter/room/greghub/funnel-graph-js.svg)](https://gitter.im/funnel-graph-js/community)
+A Vue 3 component library for creating beautiful, interactive SVG funnel charts with TypeScript support and Vite build system.
 
-Funnel Graph JS is a library for generating a funnel chart. It generates an SVG chart, adds labels, legend and other info.
-Some of the features include generating horizontal and vertical funnel charts, applying solid colors and gradients,
-possibility to generate a two-dimensional funnel chart. 
+![Vue 3 Funnel Graph](https://github.com/user-attachments/assets/aa80748d-e8be-4386-a97f-e841b79996c7)
 
-<img width="640" src="https://i.imgur.com/3Zw9m2l.jpg" alt="SVG Two Dimensional Funnel Graph">
+## Features ✨
 
-FunnelGraph.js is also available as a Vue.js component: [Vue Funnel Graph](https://github.com/greghub/vue-funnel-graph-js)
-
-## Table of Contents
-
-- [Installation](#installation)
-- [Usage](#usage)
-- [Options](#options)
-- [Methods](#methods)
+- **Vue 3 + Composition API**: Built with modern Vue 3 reactive system
+- **TypeScript Support**: Full type safety and IntelliSense
+- **Vite Build System**: Fast development and optimized builds
+- **Responsive Design**: Adapts to container dimensions
+- **Interactive**: Click handlers and dynamic data updates
+- **Flexible Orientations**: Horizontal and vertical layouts
+- **Rich Data Support**: 1D and 2D data with sub-categories
+- **Customizable Gradients**: Multi-color gradients with direction control
+- **Accessibility**: Proper semantic structure and ARIA support
 
 ## Installation
 
-You can get the code by installing the NPM package, loading files from a CDN or downloading the repo. 
-
-#### NPM
-
-Run the following script to install:
-```
-npm i funnel-graph-js
-```
-
-#### CDN
-
-```html
-<link rel="stylesheet" type="text/css" href="https://unpkg.com/funnel-graph-js@1.3.9/dist/css/main.min.css">
-<link rel="stylesheet" type="text/css" href="https://unpkg.com/funnel-graph-js@1.3.9/dist/css/theme.min.css">
-
-<script src="https://unpkg.com/funnel-graph-js@1.3.9/dist/js/funnel-graph.min.js"></script>
-```
-
-#### Download
-
-Download the repo ZIP, add `funnel-graph.js` or `funnel-graph.min.js`, and `main.css` or `main.min.css`.
-Optionally add `theme.min.css` to include the styling for labels, legend etc. 
-It is recommended to add the theme, to display the chart correctly.
-
-FunnelGraph.js is built in a way that most of the styling is controlled by theme file,
-so it is possible to adapt every element to your design. The chart is a SVG element and 
-`colors` property of the options controls the colors of the chart.
-
-CSS:
-```html
-<link rel="stylesheet" type="text/css" href="../dist/css/main.min.css">
-<link rel="stylesheet" type="text/css" href="../dist/css/theme.min.css">
-```
-
-JS:
-```html
-<script src="../dist/js/funnel-graph.js"></script>
+```bash
+npm install funnel-graph-js
 ```
 
 ## Usage
 
-```js
-var graph = new FunnelGraph({
-    container: '.funnel',
-    gradientDirection: 'horizontal',
-    data: {...},
-    displayPercent: true,
-    direction: 'horizontal'
-});
+### Basic Usage
 
-graph.draw();
+```vue
+<template>
+  <FunnelGraph :data="funnelData" />
+</template>
+
+<script setup lang="ts">
+import { FunnelGraph } from 'funnel-graph-js'
+import type { FunnelData } from 'funnel-graph-js'
+
+const funnelData: FunnelData = {
+  labels: ['Impressions', 'Add To Cart', 'Buy'],
+  values: [12000, 5700, 360]
+}
+</script>
 ```
 
-You can choose how you want to display your data on funnel graph. 
-You can display exact numbers, you can display percentages or both.
-The library will generate percentages automatically,
-taking the largest number as 100% and then calculating 
-other numbers as a fraction of the largest number.
-For example: 12000, 5700 and 360 will be displayed as 47.5% and 3% 
-(100% is skipped in order to avoid redundancy).
+### Advanced Usage with 2D Data
 
-Provided values | 12000 | 5700  | 360 |
-|---------------|-------|-------|-----|
-Display values | 12,000 | 5,700  | 360 |
-Calculated percentages |       | 47.5% | 3%  |
+```vue
+<template>
+  <FunnelGraph
+    :data="complexData"
+    :width="800"
+    :height="300"
+    direction="horizontal"
+    gradient-direction="horizontal"
+    :display-percent="true"
+    sub-label-value="raw"
+  />
+</template>
 
-If you want to hide percentages you set `displayPercent` to `false`:
+<script setup lang="ts">
+import { FunnelGraph } from 'funnel-graph-js'
+import type { FunnelData } from 'funnel-graph-js'
 
-```js
-{
-    displayPercent: false
+const complexData: FunnelData = {
+  labels: ['Impressions', 'Add To Cart', 'Buy'],
+  subLabels: ['Direct', 'Social Media', 'Ads'],
+  colors: [
+    ['#FFB178', '#FF78B1', '#FF3C8E'],
+    ['#A0BBFF', '#EC77FF'],
+    ['#A0F9FF', '#7795FF']
+  ],
+  values: [
+    [3500, 2500, 6500],
+    [3300, 1400, 1000],
+    [600, 200, 130]
+  ]
+}
+</script>
+```
+
+### Plugin Installation
+
+```typescript
+import { createApp } from 'vue'
+import FunnelGraphPlugin from 'funnel-graph-js'
+
+const app = createApp(App)
+app.use(FunnelGraphPlugin)
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `data` | `FunnelData` | **required** | The funnel data configuration |
+| `width` | `number` | `800` | Chart width in pixels |
+| `height` | `number` | `300` | Chart height in pixels |
+| `direction` | `'horizontal' \| 'vertical'` | `'horizontal'` | Chart orientation |
+| `gradientDirection` | `'horizontal' \| 'vertical'` | `'horizontal'` | Gradient direction |
+| `displayPercent` | `boolean` | `true` | Show percentage values |
+| `subLabelValue` | `'percent' \| 'raw'` | `'percent'` | Sub-label value format |
+
+## Types
+
+### FunnelData
+
+```typescript
+interface FunnelData {
+  labels?: string[]                              // Step labels
+  subLabels?: string[]                          // Sub-category labels
+  colors?: string | string[] | (string | string[])[]  // Colors or gradients
+  values: number[] | number[][]                 // 1D or 2D values
 }
 ```
 
-You can also display a vertical funnel graph: 
-```js
-{
-    direction: 'vertical'
+### FunnelConfig
+
+```typescript
+interface FunnelConfig {
+  width?: number
+  height?: number
+  direction?: 'horizontal' | 'vertical'
+  gradientDirection?: 'horizontal' | 'vertical'
+  displayPercent?: boolean
+  subLabelValue?: 'percent' | 'raw'
 }
 ```
 
-If you want to add a solid color to your funnel:
-```js
-{
-    color: '#FF5500'
+## Examples
+
+### Vertical Layout
+![Vertical Funnel Graph](https://github.com/user-attachments/assets/f0e271f1-26c5-444d-b396-15e1241b5d67)
+
+### Simple Data
+```typescript
+const simpleData: FunnelData = {
+  colors: ['#FFB178', '#FF3C8E'],
+  values: [11000, 3000, 240]
 }
 ```
 
-And if you want a gradient:
-```js
-{
-    color: ['orange', 'red']
-}
-```
-An array containing only one color will have the same effect
-as passing a single color as a string.
-
-If you are using a gradient you can control the gradient direction using:
-
-```js
-{
-    gradientDirection: 'vertical' // defaults to 'horizontal'
+### With Labels
+```typescript
+const labeledData: FunnelData = {
+  labels: ['Visitors', 'Leads', 'Customers'],
+  colors: ['#FFB178', '#FF3C8E'],
+  values: [12000, 5700, 360]
 }
 ```
 
-There are 3 ways to define data for the funnel graph.
-
-The most simple way is do define a data array:
-
-```js
-data: [12000, 5700, 360]
-```
-
-this will create the data without any titles. However you can still display the values as percentages, as number or both.
-
-If you want to add labels to your numbers pass an array of labels to `data`.
-
-```js
-data: {
-    labels: ['Impressions', 'Add To Cart', 'Buy'],
-    colors: ['orange', 'red'],
-    values: [12000, 5700, 360]
-},
-```
-
-That most explicit way to add data to the funnel graph.
-
-
-<img width="640" src="https://i.imgur.com/c2qbxGQ.jpg" alt="SVG Funnel Graph">
-
-If using one of those two ways, you can control the graph 
-color using `colors` param. Otherwise, the default color will be used. 
-And if you are using gradient as color, then you can control
-gradient direction with `gradientDirection` param. 
-`colors` shall be passed inside `data`, while `gradientDirection` with other options.
-
-```js
-data: {
-    gradientDirection: 'horizontal'
+### Multi-dimensional Data
+```typescript
+const multiData: FunnelData = {
+  labels: ['Impressions', 'Add To Cart', 'Buy'],
+  subLabels: ['Direct', 'Social Media', 'Ads'],
+  colors: [
+    ['#FFB178', '#FF78B1', '#FF3C8E'],
+    ['#A0BBFF', '#EC77FF'],
+    ['#A0F9FF', '#7795FF']
+  ],
+  values: [
+    [3500, 2500, 6500],
+    [3300, 1400, 1000],
+    [600, 200, 130]
+  ]
 }
 ```
 
-Otherwise it defaults to horizontal (left to right).
+## Development
 
-## Two-dimensional funnel graph
+```bash
+# Install dependencies
+npm install
 
-If you want to break down your data into more details,
-you can use two-dimensional svg funnel graph. It will
-generate a graph like this: 
+# Start development server
+npm run dev
 
-<img width="640" src="https://i.imgur.com/3Zw9m2l.jpg" alt="SVG Two Dimensional Funnel Graph">
+# Build for production
+npm run build
 
+# Run tests
+npm test
 
-In this example we will add more details to the previous example.
-We have Impressions, Add To Cart and Buy data, however this time
-we also want to visualize the data sources. So we want to see
-the traffic sources, how much of them are direct, from ads
-and from social media.
-
-```js
-data: {
-    labels: ['Impressions', 'Add To Cart', 'Buy'],
-    subLabels: ['Direct', 'Social Media', 'Ads'],
-    colors: [
-        ['#FFB178', '#FF78B1', '#FF3C8E'],
-        'red',
-        ['blue']
-    ],
-    values: [
-        [2000, 4000, 6000],
-        [3000, 1000, 1700],
-        [200, 30, 130]
-    ]
-}
+# Type checking
+npm run type-check
 ```
 
-In a two-dimensional graph each segment shall have it's own color or gradient.
-If using a gradient the `gradientDirection` option will be applied to all of the segments.
-However all supported ways of defining colors in a simple funnel graph can be used here as
-well and you can have both solid colors and gradients applied to segments of a single graph.
-In the above example first segment, "Direct", will have a gradient, 
-"Social Media" will have a solid red color, and "Ads" segment will have a solid blue.   
+## Migration from v1.x
 
-## Options
+This version represents a complete rewrite for Vue 3. Key changes:
 
-| Option | Description | Type | Required | Options | Default | Example |
-|--------|-------------|------|----------|---------|---------|---------|
-| `container` | Selector of the element that will hold the chart | `string` | Yes | | | '.funnel-container' |
-| `direction` | Whether the chart visualization is displayed vertically or horizontally | `string` | No | 'vertical', 'horizontal' | 'horizontal' | |
-| `gradientDirection` | Whether the gradient applied to the segments of the graph is displayed from top to bottom or from left to right | `string` | No | 'vertical', 'horizontal' | 'horizontal' |
-| `displayPercent` | Whether to display the automatically calculated percentage values below the labels | `boolean` | No | `true`, `false` | `true` | |
-| `data` | Object containing information about values, labels and colors of the chart | `object` | Yes | | | |
-| `width` | Width of the funnel graph | `number` | No | | Container width | 800 |
-| `height` | Height of the funnel graph | `number` | No | | Container height | 300 |
-| `subLabelValue` | Whether display percentage or real value of segment | `string` | No | `percent`, `raw` | `percent` | 
+- **Vue 3 Components**: Now uses Vue 3 reactive components instead of vanilla JavaScript
+- **TypeScript**: Full TypeScript support with proper type definitions
+- **Vite**: Modern build system replacing Gulp
+- **Composition API**: Uses Vue 3 Composition API for better reactivity
+- **ESM**: Native ES module support
 
-## Methods
+### Breaking Changes
 
-| Method | Description | Example |
-|--------|-------------|---------|
-| `makeVertical()` | Display chart vertically | |
-| `makeHorizontal()` | Display chart horizontally | |
-| `toggleDirection()` | Toggle direction of chart | |
-| `gradientMakeVertical()` | Display gradient on all sections from top to bottom | |
-| `gradientMakeHorizontal()` | Display gradient on all sections from left to right | |
-| `gradientToggleDirection()` | Toggle direction of gradient on all sections | |
-| `updateHeight()` | Update funnel graph height | |
-| `updateWidth()` | Update funnel graph width | |
-| `updateData({data})` | Update funnel graph data | ```labels: ['Stage 1', 'Stage 2', 'Stage 3']``` |
-| `update({options})` | Update funnel options | ```gradientDirection: 'horizontal', data: {...}, displayPercent: true, direction: 'horizontal', height: 300, width: 500``` |
+1. **Installation**: Now requires Vue 3 as a peer dependency
+2. **API**: Use as Vue component instead of JavaScript class
+3. **Build**: Uses Vite instead of Gulp/Browserify
+4. **Types**: Full TypeScript support with proper interfaces
+
+## Browser Support
+
+- Chrome >= 90
+- Firefox >= 90
+- Safari >= 14
+- Edge >= 90
+
+## License
+
+MIT © [Greg Hovanesyan](https://github.com/greghub)
+
+## Contributing
+
+Contributions are welcome! Please read the contributing guidelines and submit pull requests to the main repository.

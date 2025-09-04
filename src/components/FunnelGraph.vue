@@ -196,7 +196,12 @@ const getPathDefinitions = (): string[] => {
   for (let i = 0; i < getDataSize(); i++) {
     const X = [mainAxisPoints[i], mainAxisPoints[i + 1]]
     const Y = [crossAxisPoints[i], crossAxisPoints[i]]
-    const YNext = [fullCrossAxis - crossAxisPoints[i + 1], fullCrossAxis - crossAxisPoints[i + 1]]
+    const YNext = [fullCrossAxis - crossAxisPoints[i + 1] || 0, fullCrossAxis - crossAxisPoints[i + 1] || 0]
+    
+    // Ensure no NaN values
+    if (X.some(x => isNaN(x)) || Y.some(y => isNaN(y)) || YNext.some(y => isNaN(y))) {
+      continue
+    }
     
     if (direction.value === 'vertical') {
       paths.push(createVerticalPath(i, Y, X, YNext))

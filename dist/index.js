@@ -1,21 +1,21 @@
-import { defineComponent as X, ref as z, computed as h, onMounted as Y, nextTick as ee, createElementBlock as c, openBlock as d, normalizeClass as te, createElementVNode as m, createCommentVNode as C, Fragment as b, renderList as $, normalizeStyle as G, toDisplayString as k, unref as R, createTextVNode as T } from "vue";
-const A = (o) => Math.round(o * 10) / 10, E = (o) => Number(o).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"), I = (o, t, r, i) => ` C${A((r + o) / 2)},${t} ${A((r + o) / 2)},${i} ${r},${i}`, N = (o, t, r, i) => ` C${o},${A((i + t) / 2)} ${r},${A((i + t) / 2)} ${r},${i}`, le = (o, t, r, i) => {
+import { defineComponent as Y, ref as z, computed as h, onMounted as ee, nextTick as te, createElementBlock as c, openBlock as d, normalizeClass as ae, createElementVNode as m, createCommentVNode as D, Fragment as b, renderList as $, normalizeStyle as G, toDisplayString as k, unref as R, createTextVNode as T } from "vue";
+const A = (o) => Math.round(o * 10) / 10, E = (o) => Number(o).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"), I = (o, t, r, i) => ` C${A((r + o) / 2)},${t} ${A((r + o) / 2)},${i} ${r},${i}`, Z = (o, t, r, i) => ` C${o},${A((i + t) / 2)} ${r},${A((i + t) / 2)} ${r},${i}`, le = (o, t, r, i) => {
   let v = `M${t[0]},${r[0]}`;
-  for (let l = 0; l < t.length - 1; l++)
-    v += I(t[l], r[l], t[l + 1], r[l + 1]);
+  for (let a = 0; a < t.length - 1; a++)
+    v += I(t[a], r[a], t[a + 1], r[a + 1]);
   v += ` L${[...t].pop()},${[...i].pop()}`;
-  for (let l = t.length - 1; l > 0; l--)
-    v += I(t[l], i[l], t[l - 1], i[l - 1]);
+  for (let a = t.length - 1; a > 0; a--)
+    v += I(t[a], i[a], t[a - 1], i[a - 1]);
   return v += " Z", v;
-}, ae = (o, t, r, i) => {
+}, ne = (o, t, r, i) => {
   let v = `M${t[0]},${r[0]}`;
-  for (let l = 0; l < r.length - 1; l++)
-    v += N(t[l], r[l], t[l + 1], r[l + 1]);
+  for (let a = 0; a < r.length - 1; a++)
+    v += Z(t[a], r[a], t[a + 1], r[a + 1]);
   v += ` L${[...i].pop()},${[...r].pop()}`;
-  for (let l = r.length - 1; l > 0; l--)
-    v += N(i[l], r[l], i[l - 1], r[l - 1]);
+  for (let a = r.length - 1; a > 0; a--)
+    v += Z(i[a], r[a], i[a - 1], r[a - 1]);
   return v += " Z", v;
-}, Z = [
+}, H = [
   "#FF4589",
   "#FF5050",
   "#05DF9D",
@@ -26,24 +26,24 @@ const A = (o) => Math.round(o * 10) / 10, E = (o) => Number(o).toString().replac
   "#F2C94C",
   "#FF9A9A",
   "#FFB178"
-], ne = (o) => {
-  const t = [...Z];
+], se = (o) => {
+  const t = [...H];
   for (; t.length < o; )
-    t.push(...Z);
+    t.push(...H);
   return t.slice(0, o);
-}, se = (o = "") => Math.random().toString(36).replace("0.", o), re = ["width", "height"], oe = ["id", "gradientTransform"], ue = ["offset"], ie = ["d", "fill", "stroke"], ce = {
+}, re = (o = "") => Math.random().toString(36).replace("0.", o), oe = ["width", "height"], ue = ["id", "gradientTransform"], ie = ["offset"], ce = ["d", "fill", "stroke"], de = {
   key: 0,
   class: "vue-funnel-graph__labels"
-}, de = { class: "label__value" }, ve = { class: "label__title" }, he = {
+}, ve = { class: "label__value" }, he = { class: "label__title" }, pe = {
   key: 0,
   class: "label__percentage"
-}, pe = {
+}, fe = {
   key: 1,
   class: "label__segment-percentages"
-}, ge = { class: "segment-percentage__list" }, fe = { class: "percentage__list-label" }, _e = {
+}, ge = { class: "segment-percentage__list" }, _e = { class: "percentage__list-label" }, me = {
   key: 1,
   class: "vue-funnel-graph__subLabels"
-}, me = /* @__PURE__ */ X({
+}, ye = /* @__PURE__ */ Y({
   __name: "FunnelGraph",
   props: {
     data: {},
@@ -56,68 +56,68 @@ const A = (o) => Math.round(o * 10) / 10, E = (o) => Number(o).toString().replac
     subLabelValue: { default: "percent" }
   },
   setup(o) {
-    const t = o, r = z(), i = z(), v = h(() => t.data.labels || []), l = h(() => t.data.subLabels || []), _ = h(() => t.data.values), g = h(() => t.data.colors ? t.data.colors : ne(y.value ? q() : 2)), y = h(() => Array.isArray(_.value[0])), F = h(() => t.direction), L = h(() => t.gradientDirection), O = h(() => t.displayPercent), W = h(() => t.subLabelValue), p = h(() => {
-      var s, a;
+    const t = o, r = z(), i = z(), v = h(() => t.data.labels || []), a = h(() => t.data.subLabels || []), _ = h(() => t.data.values), g = h(() => t.data.colors ? t.data.colors : se(y.value ? x() : 2)), y = h(() => Array.isArray(_.value[0])), F = h(() => t.direction), N = h(() => t.gradientDirection), W = h(() => t.displayPercent), q = h(() => t.subLabelValue), p = h(() => {
+      var s, l;
       return {
         width: t.width || (((s = i.value) == null ? void 0 : s.clientWidth) ?? 800),
-        height: t.height || (((a = i.value) == null ? void 0 : a.clientHeight) ?? 300)
+        height: t.height || (((l = i.value) == null ? void 0 : l.clientHeight) ?? 300)
       };
-    }), D = () => _.value.length, q = () => _.value[0].length, x = () => y.value ? _.value.map((s) => s.reduce((a, e) => a + e, 0)) : _.value, w = h(() => y.value ? x() : _.value), P = h(() => {
-      const s = w.value, a = Math.max(...s);
-      return s.map((e) => e === 0 ? 0 : A(e * 100 / a));
-    }), M = h(() => y.value ? _.value.map((s) => {
-      const a = s.reduce((e, n) => e + n, 0);
-      return s.map((e) => e === 0 ? 0 : A(e * 100 / a));
-    }) : []), J = () => {
-      const s = F.value === "vertical" ? p.value.width : p.value.height, a = [];
-      for (let e = 0; e <= D(); e++)
-        a.push(s / D() * e);
-      return a;
-    }, K = () => {
-      const s = F.value === "vertical" ? p.value.height : p.value.width, a = w.value, e = Math.max(...a);
-      return a.map((n) => s * (1 - n / e) / 2);
+    }), w = () => _.value.length, x = () => _.value[0].length, J = () => y.value ? _.value.map((s) => s.reduce((l, e) => l + e, 0)) : _.value, V = h(() => y.value ? J() : _.value), S = h(() => {
+      const s = V.value, l = Math.max(...s);
+      return s.map((e) => e === 0 ? 0 : A(e * 100 / l));
+    }), B = h(() => y.value ? _.value.map((s) => {
+      const l = s.reduce((e, n) => e + n, 0);
+      return s.map((e) => e === 0 ? 0 : A(e * 100 / l));
+    }) : []), K = () => {
+      const s = F.value === "vertical" ? p.value.width : p.value.height, l = [];
+      for (let e = 0; e <= w(); e++)
+        l.push(s / w() * e);
+      return l;
     }, Q = () => {
-      const s = J(), a = K(), e = F.value === "vertical" ? p.value.height : p.value.width, n = [];
-      for (let u = 0; u < D(); u++) {
-        const f = [s[u], s[u + 1]], S = [a[u], a[u]], B = [e - a[u + 1], e - a[u + 1]];
-        F.value === "vertical" ? n.push(ae(u, S, f, B)) : n.push(le(u, f, S, B));
+      const s = F.value === "vertical" ? p.value.height : p.value.width, l = V.value, e = Math.max(...l);
+      return l.map((n) => s * (1 - n / e) / 2);
+    }, U = () => {
+      const s = K(), l = Q(), e = F.value === "vertical" ? p.value.height : p.value.width, n = [];
+      for (let u = 0; u < w(); u++) {
+        const f = [s[u], s[u + 1]], P = [l[u], l[u]], M = [e - l[u + 1] || 0, e - l[u + 1] || 0];
+        f.some((C) => isNaN(C)) || P.some((C) => isNaN(C)) || M.some((C) => isNaN(C)) || (F.value === "vertical" ? n.push(ne(u, P, f, M)) : n.push(le(u, f, P, M)));
       }
       return n;
-    }, V = h(() => {
-      const s = Array.isArray(g.value) ? g.value : [g.value], a = [];
+    }, L = h(() => {
+      const s = Array.isArray(g.value) ? g.value : [g.value], l = [];
       return s.forEach((e, n) => {
-        const u = se(`funnelGradient${n}_`);
-        Array.isArray(e) ? a.push({
+        const u = re(`funnelGradient${n}_`);
+        Array.isArray(e) ? l.push({
           id: u,
           colors: e,
-          direction: L.value
-        }) : a.push({
+          direction: N.value
+        }) : l.push({
           id: u,
           colors: [e, e],
-          direction: L.value
+          direction: N.value
         });
-      }), a;
-    }), U = h(() => {
-      const s = Q(), a = Array.isArray(g.value) ? g.value : [g.value];
+      }), l;
+    }), j = h(() => {
+      const s = U(), l = Array.isArray(g.value) ? g.value : [g.value];
       return s.map((e, n) => {
-        const u = a[n % a.length], f = V.value[n % V.value.length];
+        const u = l[n % l.length], f = L.value[n % L.value.length];
         return {
           d: e,
           fill: `url(#${f.id})`,
           stroke: Array.isArray(u) ? `url(#${f.id})` : u
         };
       });
-    }), j = (s) => {
-      const a = Array.isArray(g.value) ? g.value : [g.value], e = a[s % a.length];
+    }), X = (s) => {
+      const l = Array.isArray(g.value) ? g.value : [g.value], e = l[s % l.length];
       return `background-color: ${Array.isArray(e) ? e[0] : e}`;
     };
-    return Y(() => {
-      ee(() => {
+    return ee(() => {
+      te(() => {
       });
-    }), (s, a) => (d(), c("div", {
+    }), (s, l) => (d(), c("div", {
       ref_key: "containerRef",
       ref: r,
-      class: te(["vue-funnel-graph", { "vue-funnel-graph--vertical": F.value === "vertical" }])
+      class: ae(["vue-funnel-graph", { "vue-funnel-graph--vertical": F.value === "vertical" }])
     }, [
       m("div", {
         ref_key: "graphContainerRef",
@@ -131,7 +131,7 @@ const A = (o) => Math.round(o * 10) / 10, E = (o) => Number(o).toString().replac
           class: "vue-funnel-graph__svg"
         }, [
           m("defs", null, [
-            (d(!0), c(b, null, $(V.value, (e) => (d(), c("linearGradient", {
+            (d(!0), c(b, null, $(L.value, (e) => (d(), c("linearGradient", {
               key: e.id,
               id: e.id,
               gradientTransform: e.direction === "vertical" ? "rotate(90)" : ""
@@ -140,62 +140,62 @@ const A = (o) => Math.round(o * 10) / 10, E = (o) => Number(o).toString().replac
                 key: `${e.id}-${u}`,
                 offset: `${u * 100 / (e.colors.length - 1)}%`,
                 style: G(`stop-color: ${n}`)
-              }, null, 12, ue))), 128))
-            ], 8, oe))), 128))
+              }, null, 12, ie))), 128))
+            ], 8, ue))), 128))
           ]),
-          (d(!0), c(b, null, $(U.value, (e, n) => (d(), c("path", {
+          (d(!0), c(b, null, $(j.value, (e, n) => (d(), c("path", {
             key: n,
             d: e.d,
             fill: e.fill,
             stroke: e.stroke,
             class: "vue-funnel-graph__path"
-          }, null, 8, ie))), 128))
-        ], 8, re)) : C("", !0)
+          }, null, 8, ce))), 128))
+        ], 8, oe)) : D("", !0)
       ], 512),
-      v.value.length ? (d(), c("div", ce, [
+      v.value.length ? (d(), c("div", de, [
         (d(!0), c(b, null, $(v.value, (e, n) => (d(), c("div", {
           key: n,
           class: "vue-funnel-graph__label"
         }, [
-          m("div", de, k(R(E)(w.value[n])), 1),
-          m("div", ve, k(e), 1),
-          O.value && P.value[n] !== 100 ? (d(), c("div", he, k(P.value[n]) + "% ", 1)) : C("", !0),
-          y.value && l.value.length && M.value[n] ? (d(), c("div", pe, [
+          m("div", ve, k(R(E)(V.value[n])), 1),
+          m("div", he, k(e), 1),
+          W.value && S.value[n] !== 100 ? (d(), c("div", pe, k(S.value[n]) + "% ", 1)) : D("", !0),
+          y.value && a.value.length && B.value[n] ? (d(), c("div", fe, [
             m("ul", ge, [
-              (d(!0), c(b, null, $(l.value, (u, f) => (d(), c("li", { key: f }, [
+              (d(!0), c(b, null, $(a.value, (u, f) => (d(), c("li", { key: f }, [
                 T(k(u) + ": ", 1),
-                m("span", fe, k(W.value === "percent" ? `${M.value[n][f]}%` : R(E)(s.data.values[n][f])), 1)
+                m("span", _e, k(q.value === "percent" ? `${B.value[n][f]}%` : R(E)(s.data.values[n][f])), 1)
               ]))), 128))
             ])
-          ])) : C("", !0)
+          ])) : D("", !0)
         ]))), 128))
-      ])) : C("", !0),
-      l.value.length && !y.value ? (d(), c("div", _e, [
-        (d(!0), c(b, null, $(l.value, (e, n) => (d(), c("div", {
+      ])) : D("", !0),
+      a.value.length && !y.value ? (d(), c("div", me, [
+        (d(!0), c(b, null, $(a.value, (e, n) => (d(), c("div", {
           key: n,
           class: "vue-funnel-graph__subLabel"
         }, [
           m("div", {
             class: "vue-funnel-graph__subLabel--color",
-            style: G(j(n))
+            style: G(X(n))
           }, null, 4),
           T(" " + k(e), 1)
         ]))), 128))
-      ])) : C("", !0)
+      ])) : D("", !0)
     ], 2));
   }
-}), ye = (o, t) => {
+}), be = (o, t) => {
   const r = o.__vccOpts || o;
   for (const [i, v] of t)
     r[i] = v;
   return r;
-}, be = /* @__PURE__ */ ye(me, [["__scopeId", "data-v-357e8d6a"]]), H = (o) => {
-  o.component("FunnelGraph", be);
-}, ke = {
-  install: H
+}, $e = /* @__PURE__ */ be(ye, [["__scopeId", "data-v-b2078469"]]), O = (o) => {
+  o.component("FunnelGraph", $e);
+}, Ae = {
+  install: O
 };
-typeof window < "u" && window.Vue && H(window.Vue);
+typeof window < "u" && window.Vue && O(window.Vue);
 export {
-  be as FunnelGraph,
-  ke as default
+  $e as FunnelGraph,
+  Ae as default
 };
