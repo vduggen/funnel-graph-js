@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue 3 Funnel Graph</title>
+    <style>
+      body {
+        margin: 0;
+        background: #393862;
+        font-family: 'Open Sans', sans-serif;
+        min-height: 100vh;
+        padding: 24px;
+      }
+      
+      .app {
+        max-width: 1200px;
+        margin: 0 auto;
+        color: white;
+      }
+      
+      h1 {
+        text-align: center;
+        color: white;
+        margin-bottom: 48px;
+      }
+      
+      .funnel-container {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 8px;
+        padding: 24px;
+        margin-bottom: 24px;
+        min-height: 400px;
+      }
+      
+      .controls {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-top: 24px;
+      }
+      
+      button {
+        padding: 8px 16px;
+        background: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+      }
+      
+      button:hover {
+        background: #45a049;
+      }
+      
+      .dataset-btn {
+        background: #2196F3;
+      }
+      
+      .dataset-btn:hover {
+        background: #1976D2;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/example.ts"></script>
+  </body>
+</html>
